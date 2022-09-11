@@ -1,6 +1,7 @@
 import pytest
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
 
 LOGIN_TEXT = 'HR'
 PASSWORD_TEXT = 'test'
@@ -23,7 +24,7 @@ def driver(config):
     browser = config['browser']
     url = config['url']
     if browser == 'chrome':
-        driver = webdriver.Chrome(executable_path=ChromeDriverManager().install())
+        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
     else:
         raise RuntimeError(f'Unsupported browser: "{browser}"')
     driver.get(url)
